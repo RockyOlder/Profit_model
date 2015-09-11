@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$article.title}-{$shop_name}今日分享</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta content="{$article.keywords}" name="Keywords">
+<meta content="{$article.description}" name="Description">
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="{$ectouch_themes}/ectouch.css" rel="stylesheet" type="text/css" />
+<script src="/mobile/js/utils.js" type="text/javascript"/></script>
+<script src="/mobile/js/transport.js" type="text/javascript"/></script>
+<script src="/mobile/js/jquery-1.9.1.min.js" type="text/javascript"/></script>
+<script src="/mobile/js/jquery.json.js" type="text/javascript"/></script>
+
+</head>
+
+<body>
+<section class="wrap">
+  <div class="art_content">
+    <h2 id="activity-name" class="rich_media_title">{$article.title}</h2>
+    <div class="rich_media_meta_list">
+        <em id="post-date" class="rich_media_meta rich_media_meta_text">{$article.add_time}</em>
+        <a id="post-user" class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="{$shishi_url}">{$shop_name}</a>
+    </div>
+    <div>
+      <p> {$article.content} </p><br/>
+      
+      <div id="js_toobar" class="rich_media_tool">
+        <div class="media_tool_meta tips_global meta_primary" id="js_read_area">阅读 <span id="readNum">{$count}</span></div>
+        <span id="like" class="media_tool_meta meta_primary tips_global meta_praise" >
+            <a href="javascript:;" onClick="change_love({$id})"><i class="icon_praise_gray"></i></a>
+            <span id="likeNum" class="praise_num">{$praise}</span>
+        </span>
+        <a href="javascript:void(0);" class="media_tool_meta tips_global meta_extra" id="js_report_article">举报</a>
+      </div>
+      
+    </div>
+  </div>
+<!-- #BeginLibraryItem "/library/goods_related.lbi" --><!-- #EndLibraryItem -->
+</section>
+
+<!--bof shi-shi wfx Q1141881310 add-->
+<script type="text/javascript">
+function change_love(article_id)
+{
+var Lastsend = document.getCookie('ECS_auction_Lastsend_'+ article_id);
+//var Lastsend = null;
+//alert(article_id);
+if(Lastsend == null)
+{
+Ajax.call( 'article.php?act=chage_usenum','id=' + article_id, lovenum_Response, 'POST', 'TEXT' );
+document.setCookie('ECS_auction_Lastsend_'+ article_id, article_id);
+}
+else
+{
+//window.location.href='article.php?id='+ article_id; 
+}
+}
+
+function lovenum_Response(res)
+{
+
+
+		document.getElementById("likeNum").innerHTML = res;
+
+}
+</script>
+<!--eof shi-shi wfx Q1141881310 -->
+
+
+</body>
+</html>
